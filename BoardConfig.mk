@@ -44,7 +44,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 
 ## Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8x25
-TARGET_KERNEL_CONFIG := cm_delos3geur_defconfig
+TARGET_KERNEL_CONFIG := cyanogen_delos3geur_defconfig
 
 ## Partition Info
 TARGET_USERIMAGES_USE_EXT4 := true
