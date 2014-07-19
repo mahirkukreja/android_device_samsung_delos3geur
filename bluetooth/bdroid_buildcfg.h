@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- * Copyright (C) 2012 The CyanogenMod Project <http://www.cyanogenmod.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
-
-#define BTM_DEF_LOCAL_NAME   "msm7x27a"
 #define BTA_DISABLE_DELAY 1000 /* in milliseconds */
-
 #define BLE_INCLUDED FALSE
 #define BTA_GATT_INCLUDED FALSE
 #define SMP_INCLUDED FALSE
-
+#define BTM_DEF_LOCAL_NAME   "GT-I8262"
 #endif
