@@ -83,6 +83,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
     ro.adb.secure=0 \
     persist.sys.usb.config=mtp
+    persist.sys.vold.switchablepair=sdcard0,sdcard1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.zygote.disable_gl_preload=true \
