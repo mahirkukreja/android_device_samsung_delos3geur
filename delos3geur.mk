@@ -84,9 +84,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     persist.sys.usb.config=mtp \
 
-# Baseband properly shown in about info instead of Unknown
-    PRODUCT_PROPERTY_OVERRIDES += \
-    gsm.version.baseband=I8552DXAMJ1
+# Baseband properly shown in about info instead of Unknown  : Does this actually needed???
+#    PRODUCT_PROPERTY_OVERRIDES += \
+#    gsm.version.baseband=I8552DXAMJ1 
 
 ## Ramdisk
 PRODUCT_COPY_FILES += \
