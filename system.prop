@@ -16,7 +16,7 @@ ro.bt.bdaddr_path=/data/misc/bluedroid/bdaddr
 # Telephony
 ro.telephony.ril_class=SamsungRIL
 rild.libpath=/system/lib/libril-qc-qmi-1.so
-rild.libargs=-d/dev/smd0
+rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
 persist.rild.nitz_long_ons_0=
 persist.rild.nitz_long_ons_1=
@@ -27,6 +27,13 @@ persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
+
+ro.telephony.default_network=3
+ro.multi.rild=true
+persist.dsds.enabled=true
+persist.radio.multisim.config=dsds
+persist.multisim.config=dsds
+
 DEVICE_PROVISIONED=1
 keyguard.no_require_sim=1
 debug.sf.hw=1
@@ -73,9 +80,3 @@ wifi.supplicant_scan_interval=60
 # USB
 persist.sys.usb.config=mtp,adb
 persist.service.adb.enable=1
-
-ro.telephony.default_network=3
-ro.multi.rild=true
-persist.dsds.enabled=true
-persist.radio.multisim.config=dsds
-persist.multisim.config=dsds
