@@ -107,9 +107,8 @@ PRODUCT_COPY_FILES += \
 
 ## Properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    rild.libpath=/system/lib/libril-qc-qmi-1.so \
-    rild.libargs=-d/dev/smd0 \
-    ro.telephony.ril_class=SamsungRIL \
+    rild.libpath=/system/lib/libril-qc-qmi-1.so
+    rild.libargs=-d /dev/smd0
     ro.telephony.ril.v3=datacall,icccardstatus,facilitylock \
     ro.telephony.call_ring.multiple=false
 
