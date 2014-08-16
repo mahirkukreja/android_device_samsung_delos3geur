@@ -59,6 +59,13 @@ PRODUCT_PACKAGES += \
     qcom.fmradio \
     libqcomfm_jni \
     FM2
+## Bluetooth
+PRODUCT_PACKAGES += \
+    haltest \
+    hciattach \
+    hciconfig \
+    hcitool \
+    bccmd
 
 ## Device-specific packages
 PRODUCT_PACKAGES += \
