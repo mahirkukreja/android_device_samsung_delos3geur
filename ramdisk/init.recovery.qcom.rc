@@ -1,0 +1,12 @@
+on post-fs-data
+# bluetooth
+mkdir /data/misc/bluedroid 0770 bluetooth net_bt_stack
+mkdir /data/misc/bluetooth 0770 system system
+mkdir /efs/bluetooth 0775 radio system
+setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
+chown bluetooth bluetooth ro.bt.bdaddr_path
+chown bluetooth bluetooth /dev/ttySAC0
+chmod 0600 /dev/ttySAC0
+chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+chmod 0660 /sys/class/rfkill/rfkill0/state
