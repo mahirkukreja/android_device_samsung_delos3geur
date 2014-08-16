@@ -3,7 +3,7 @@
 # adapted for galaxy grand quattro by k2wl
 
 LOG_TAG="CSR7820-HCI"
-BTUART_PORT=/dev/ttySAC0
+BTUART_PORT=/dev/ttyHS0
 BTSTATE=/sys/class/rfkill/rfkill0/state
 PSCONFIG=/system/etc/PSConfig_7820.psr
 
