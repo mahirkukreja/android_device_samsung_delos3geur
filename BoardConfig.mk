@@ -89,10 +89,10 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 #PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 #TARGET_FORCE_CPU_UPLOAD := true
 #ENABLE_WEBGL := true
+
 ## Bluetooth
-# We use CSR chip so is incompatible with bluedroid
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/delos3geur/bluetooth
+BOARD_HAVE_BLUETOOTH_CSR := true
 
 ## Wi-Fi
 BOARD_WLAN_DEVICE := ath6kl
