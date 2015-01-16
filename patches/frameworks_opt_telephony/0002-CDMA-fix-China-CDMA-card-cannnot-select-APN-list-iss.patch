@@ -1,0 +1,58 @@
+From e9f7a7924f1f1c0c5789119388fd73262ecda0b9 Mon Sep 17 00:00:00 2001
+From: Chenxi Mao <chenxi.mao2013@gmail.com>
+Date: Thu, 3 Jul 2014 19:27:37 +0800
+Subject: [PATCH] CDMA: fix China CDMA card cannnot select APN list issue
+
+This issue found in China Telecomm operator, the
+PROPERTY_APN_SIM_OPERATOR_NUMERIC value cannot be recognized correctly
+in UICCRecords. This will cause APN list cannot be displayed in setting menu.
+So I refer to SIMRecords implement and re-read IMSI in
+UICC records.
+After apply this patch, the PROPERTY_APN_SIM_OPERATOR_NUMERIC is correct vaule
+and the APN list can be displayed in setting menu.
+
+Change-Id: Ifd4eed5f774cdd9322646a75c14348f9dee6d77d
+---
+ .../internal/telephony/uicc/RuimRecords.java       |   13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/java/com/android/internal/telephony/uicc/RuimRecords.java b/src/java/com/android/internal/telephony/uicc/RuimRecords.java
+index 57a3b20..da00bc8 100644
+--- a/src/java/com/android/internal/telephony/uicc/RuimRecords.java
++++ b/src/java/com/android/internal/telephony/uicc/RuimRecords.java
+@@ -19,7 +19,7 @@ package com.android.internal.telephony.uicc;
+ 
+ import static com.android.internal.telephony.TelephonyProperties.PROPERTY_ICC_OPERATOR_ISO_COUNTRY;
+ import static com.android.internal.telephony.TelephonyProperties.PROPERTY_ICC_OPERATOR_NUMERIC;
+-
++import static com.android.internal.telephony.TelephonyProperties.PROPERTY_APN_SIM_OPERATOR_NUMERIC;
+ import static com.android.internal.telephony.TelephonyProperties.PROPERTY_ICC_OPERATOR_ALPHA;
+ import static com.android.internal.telephony.TelephonyProperties.PROPERTY_TEST_CSIM;
+ 
+@@ -138,6 +138,8 @@ public final class RuimRecords extends IccRecords {
+ 
+         mAdnCache.reset();
+ 
++        setSystemProperty(PROPERTY_APN_SIM_OPERATOR_NUMERIC, null);
++
+         // Don't clean up PROPERTY_ICC_OPERATOR_ISO_COUNTRY and
+         // PROPERTY_ICC_OPERATOR_NUMERIC here. Since not all CDMA
+         // devices have RUIM, these properties should keep the original
+@@ -679,6 +681,15 @@ public final class RuimRecords extends IccRecords {
+     protected void onAllRecordsLoaded() {
+         if (DBG) log("record load complete");
+ 
++        String operator = getOperatorNumeric();
++        if (!TextUtils.isEmpty(operator)) {
++            log("onAllRecordsLoaded set 'gsm.apn.sim.operator.numeric' to operator='" +
++                    operator + "'");
++            setSystemProperty(PROPERTY_APN_SIM_OPERATOR_NUMERIC, operator);
++        } else {
++            log("onAllRecordsLoaded empty 'gsm.apn.sim.operator.numeric' skipping");
++        }
++
+         setLocaleFromCsim();
+         mRecordsLoadedRegistrants.notifyRegistrants(
+             new AsyncResult(null, null, null));
+-- 
+1.7.9.5

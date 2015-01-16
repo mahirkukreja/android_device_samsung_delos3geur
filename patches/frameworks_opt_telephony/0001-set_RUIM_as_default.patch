@@ -1,0 +1,27 @@
+From 7d3de1e81337d64cc0ed01914fcb75a931194edb Mon Sep 17 00:00:00 2001
+From: xiaognol <317065820@qq.com>
+Date: Thu, 15 May 2014 22:21:00 +0800
+Subject: [PATCH] set_RUIM_as_default
+
+Change-Id: I9b6d50a2dc37c33e00fe43d5d99eb087565c6608
+Signed-off-by: xiaognol <317065820@qq.com>
+---
+ .../android/internal/telephony/cdma/CdmaSubscriptionSourceManager.java  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/java/com/android/internal/telephony/cdma/CdmaSubscriptionSourceManager.java b/src/java/com/android/internal/telephony/cdma/CdmaSubscriptionSourceManager.java
+index f7b8936..12ba12b 100644
+--- a/src/java/com/android/internal/telephony/cdma/CdmaSubscriptionSourceManager.java
++++ b/src/java/com/android/internal/telephony/cdma/CdmaSubscriptionSourceManager.java
+@@ -44,7 +44,7 @@ public class CdmaSubscriptionSourceManager extends Handler {
+     public static final int SUBSCRIPTION_SOURCE_UNKNOWN = -1;
+     public static final int SUBSCRIPTION_FROM_RUIM      = 0; /* CDMA subscription from RUIM */
+     public static final int SUBSCRIPTION_FROM_NV        = 1; /* CDMA subscription from NV */
+-    public static final int PREFERRED_CDMA_SUBSCRIPTION = SUBSCRIPTION_FROM_NV;
++    public static final int PREFERRED_CDMA_SUBSCRIPTION = SUBSCRIPTION_FROM_RUIM; //SUBSCRIPTION_FROM_NV;
+ 
+     private static CdmaSubscriptionSourceManager sInstance;
+     private static final Object sReferenceCountMonitor = new Object();
+-- 
+1.8.3.2
+
