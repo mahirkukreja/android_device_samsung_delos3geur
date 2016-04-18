@@ -1,0 +1,110 @@
+
+project frameworks/native/
+diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
+index f5276a2..a497617 100644
+--- a/libs/gui/Surface.cpp
++++ b/libs/gui/Surface.cpp
+@@ -35,7 +35,7 @@
+ #include <private/gui/ComposerService.h>
+ 
+ #ifdef QCOM_BSP
+-#include <gralloc_priv.h>
++#include "../../../../hardware/qcom/display-caf/libgralloc/gralloc_priv.h"
+ #endif
+ 
+ namespace android {
+diff --git a/services/surfaceflinger/Android.mk b/services/surfaceflinger/Android.mk
+index 29bfea2..a764de3 100644
+--- a/services/surfaceflinger/Android.mk
++++ b/services/surfaceflinger/Android.mk
+@@ -110,17 +110,9 @@ ifeq ($(BOARD_USES_SAMSUNG_HDMI),true)
+         LOCAL_C_INCLUDES += hardware/samsung/$(TARGET_BOARD_PLATFORM)/include
+ endif
+ 
+-ifeq ($(TARGET_USES_QCOM_BSP), true)
+-ifneq ($(TARGET_QCOM_DISPLAY_VARIANT),)
+-    PLATFORM := .
+-else
+-    PLATFORM := $(TARGET_BOARD_PLATFORM)
+-endif
+-    LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/$(PLATFORM)/libgralloc
+-    LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/$(PLATFORM)/libqdutils
+-ifeq ($(TARGET_QCOM_DISPLAY_VARIANT),caf-new)
+-    LOCAL_CFLAGS += -DQCOM_B_FAMILY
+-endif
++ifneq ($(TARGET_QCOM_DISPLAY_VARIANT),legacy)
++    LOCAL_C_INCLUDES += hardware/qcom/display-legacy/libgralloc
++    LOCAL_C_INCLUDES += hardware/qcom/display-legacy/libqdutils
+     LOCAL_SHARED_LIBRARIES += libqdutils
+     LOCAL_CFLAGS += -DQCOM_BSP
+ endif
+diff --git a/services/surfaceflinger/Layer.cpp b/services/surfaceflinger/Layer.cpp
+index 4ee7a8b..ab5e4b2 100644
+--- a/services/surfaceflinger/Layer.cpp
++++ b/services/surfaceflinger/Layer.cpp
+@@ -46,7 +46,7 @@
+ 
+ #include "RenderEngine/RenderEngine.h"
+ #ifdef QCOM_BSP
+-#include <gralloc_priv.h>
++#include "../../../../hardware/qcom/display-caf/libgralloc/gralloc_priv.h"
+ #endif
+ 
+ #define DEBUG_RESIZE    0
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 4d6fb82..946342a 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -83,7 +83,7 @@
+ #endif
+ 
+ #ifdef QCOM_BSP
+-#include <display_config.h>
++#include "../../../../hardware/qcom/display-caf/libqdutils/display_config.h"
+ #endif
+ 
+ #define DISPLAY_COUNT       1
+
+project hardware/qcom/display-caf/
+diff --git a/libqdutils/display_config.h b/libqdutils/display_config.h
+index 29edbef..08b8f57 100644
+--- a/libqdutils/display_config.h
++++ b/libqdutils/display_config.h
+@@ -26,9 +26,9 @@
+  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  */
+-#include <gralloc_priv.h>
+-#include <qdMetaData.h>
+-#include <mdp_version.h>
++#include "../libgralloc/gralloc_priv.h"
++#include "qdMetaData.h"
++#include "mdp_version.h"
+ #include <hardware/hwcomposer.h>
+ 
+ // This header is for clients to use to set/get global display configuration
+
+project hardware/ril/
+diff --git a/libril/ril.cpp b/libril/ril.cpp
+index ac38da3..b0f5d4d 100644
+--- a/libril/ril.cpp
++++ b/libril/ril.cpp
+@@ -3991,9 +3991,7 @@ requestToString(int request) {
+         case RIL_REQUEST_SIM_IO: return "SIM_IO";
+         case RIL_REQUEST_SIM_TRANSMIT_BASIC: return "SIM_TRANSMIT_BASIC";
+         case RIL_REQUEST_SIM_OPEN_CHANNEL: return "SIM_OPEN_CHANNEL";
+-        case RIL_REQUEST_SIM_CLOSE_CHANNEL: return "SIM_CLOSE_CHANNEL";
+         case RIL_REQUEST_SIM_TRANSMIT_CHANNEL: return "SIM_TRANSMIT_CHANNEL";
+-        case RIL_REQUEST_SIM_GET_ATR: return "SIM_GET_ATR";
+         case RIL_REQUEST_SEND_USSD: return "SEND_USSD";
+         case RIL_REQUEST_CANCEL_USSD: return "CANCEL_USSD";
+         case RIL_REQUEST_GET_CLIR: return "GET_CLIR";
+diff --git a/libril/ril_commands.h b/libril/ril_commands.h
+index ca5a144..bb0ce41 100644
+--- a/libril/ril_commands.h
++++ b/libril/ril_commands.h
+@@ -139,4 +139,3 @@
+     {RIL_REQUEST_SIM_OPEN_CHANNEL, dispatchString, responseInts},
+     {RIL_REQUEST_SIM_CLOSE_CHANNEL, dispatchInts, responseVoid},
+     {RIL_REQUEST_SIM_TRANSMIT_CHANNEL, dispatchSIM_IO, responseSIM_IO},
+-    {RIL_REQUEST_SIM_GET_ATR, dispatchInts, responseString},
