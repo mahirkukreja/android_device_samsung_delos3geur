@@ -1,8 +1,8 @@
-cyanogenmod CM-11.0 Device Tree for Galaxy Grand Quattro GT-I8552 (delos3geur)
+#cyanogenmod CM-11.0 Device Tree for Galaxy Grand Quattro GT-I8552 (delos3geur)
 
 <b>HOW TO COMPILE ?</b>
 
-<b>TYPE THIS COMMANDS</b>
+<b>TYPE THIS COMMANDS :- </b>
 
 `cd cm-11.0`
 
@@ -34,13 +34,13 @@ cyanogenmod CM-11.0 Device Tree for Galaxy Grand Quattro GT-I8552 (delos3geur)
 <project path="device/samsung/delos3geur" name="mahirkukreja/android_device_samsung_delos3geur" revision="master" />
 <project path="kernel/samsung/delos3geur" name="Grace5921/android_kernel_samsung_delos3geur" revision="cm-12.1" />
 </manifest>
+```
+
+`gedit delos3geur.xml`
+
+`patch -p1 <device/samsung/delos3geur/patchs/patch.diff ` 
+
+`. build/envsetup.sh `
 
 
-`repo sync`
-
-`patch -p1 <device/samsung/delos3geur/patchs/patch.diff` 
-
-`. build/envsetup.sh`
-
-
-`delos3geur`
+`delos3geur `
